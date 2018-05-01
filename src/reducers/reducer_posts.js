@@ -1,4 +1,4 @@
-import { FETCH_POSTS, FETCH_POST } from '../actions';
+import { FETCH_POSTS, FETCH_POST, DELETE_POST } from '../actions';
 import _ from 'lodash';
 
 export default function (state = {}, action) {
@@ -10,7 +10,11 @@ export default function (state = {}, action) {
             //     const newState =  {...state}
             //     newState[post.id] = post;
             // return newState;
-            return { ...state, [action.payload.data.id]: action.payload.data }
+            return { ...state, [action.payload.data.id]: action.payload.data };
+            case DELETE_POST:
+            //_.omit => look @ state object, if has key of post.id, then drop it and return a new object w/o post.id.
+              //here, action.payload = id;
+            return _.omit(state, action.payload);
         default:
             return state;
     }
